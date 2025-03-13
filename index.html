@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Haneen & Youssef</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Reset some default styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Body and general layout */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      text-align: center;
+    }
+
+    /* Header styles */
+    header {
+      background-image: url('logo.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: white;
+      opacity: 0.55; 
+    }
+
+    header::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0.5); 
+      z-index: -1; 
+    }
+
+    header h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      letter-spacing: 2px;
+      text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.5);
+      color: #968888;
+    }
+
+    header p {
+      font-size: 2rem;
+      font-style: italic;
+      margin-top: 0.5rem;
+      letter-spacing: 1px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      color: #968888;
+      margin-top: 60px;
+    }
+
+    /* Smaller Calendar */
+    .calendar {
+      background: white;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 220px;
+      margin: 20px auto;
+    }
+
+    /* Month title */
+    .month {
+      font-size: 20px;
+      font-weight: bold;
+      color: #e91e63;
+      margin-bottom: 8px;
+    }
+
+    /* Weekdays */
+    .days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      font-weight: bold;
+      font-size: 12px;
+      color: #e91e63;
+      margin-bottom: 5px;
+    }
+
+    /* Dates */
+    .dates {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 3px;
+    }
+
+    .dates span {
+      font-size: 12px;
+      padding: 6px;
+      border-radius: 5px;
+      background: #ffe6eb;
+      color: #444;
+    }
+
+    /* Special day styling */
+    .special {
+      background: #e91e63;
+      color: white;
+      font-weight: bold;
+      border-radius: 50%;
+      font-size: 14px;
+    }
+
+    /* Wedding Schedule */
+    .timing {
+      padding: 40px 20px;
+      background-color: #ffffff;
+      text-align: center;
+      border-top: 5px solid #e1b7b7;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .timing h2 {
+      font-size: 2rem;
+      color: #b14e5c;
+      font-family: 'Georgia', serif;
+      margin-bottom: 15px;
+    }
+
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .timeline-item {
+      background: white;
+      padding: 12px 20px;
+      margin: 15px 0;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      width: 80%;
+      text-align: center;
+    }
+
+    .timeline-time {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #b14e5c;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #b14e5c;
+      color: white;
+      text-align: center;
+      padding: 12px 0;
+      font-size: 1rem;
+    }
+
+    /* Wedding Location */
+    .location {
+      padding: 50px 20px;
+      background-color: #ffffff;
+      text-align: center;
+      border-top: 5px solid #e1b7b7;
+      margin-top: -5px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .location h2 {
+      font-size: 2.5rem;
+      color: #b14e5c;
+      font-family: 'Georgia', serif;
+      margin-bottom: 20px;
+    }
+
+    .location h2::before {
+      content: "📍";
+      font-size: 24px;
+      margin-right: 10px;
+    }
+
+    .map-container {
+      width: 80%;
+      max-width: 800px;
+      height: 450px;
+      margin: auto;
+      padding: 15px;
+      background-color: #ffe6eb;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(255, 182, 193, 0.6);
+      border: 5px solid #ff99ac;
+      position: relative;
+    }
+
+    .map-container::before {
+      content: "♥";
+      font-size: 24px;
+      color: #e91e63;
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #ffe6eb;
+      padding: 5px 10px;
+      border-radius: 50%;
+      box-shadow: 0 2px 5px rgba(255, 182, 193, 0.6);
+    }
+
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .map-container {
+      box-shadow: 0 0 15px rgba(255, 150, 170, 0.5), 
+                  0 0 25px rgba(255, 182, 193, 0.3);
+    }
+
+    h1 {
+      font-size: 28px;
+      color: #ff6b81;
+      margin-bottom: 20px;
+    }
+
+    /* Gallery Section */
+    .gallery {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      padding: 10px 0;
+      margin: 20px auto;
+      max-width: 100%;
+    }
+
+    .photo {
+      flex: 0 0 auto;
+      width: 150px; /* Smaller photo size */
+      height: 200px; /* Smaller photo size */
+      margin: 0 10px;
+      border-radius: 15px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      scroll-snap-align: start;
+    }
+
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 15px;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 3rem;
+      }
+
+      header p {
+        font-size: 1.5rem;
+      }
+
+      .calendar {
+        width: 90%;
+      }
+
+      .timing h2 {
+        font-size: 1.8rem;
+      }
+
+      .timeline-item {
+        width: 90%;
+      }
+
+      .location h2 {
+        font-size: 2rem;
+      }
+
+      .map-container {
+        width: 90%;
+        height: 300px;
+      }
+
+      .photo {
+        width: 120px; /* Even smaller for mobile */
+        height: 160px; /* Even smaller for mobile */
+      }
+    }
+
+  @media (max-width: 480px) {
+    .your-class { 
+        font-size: 10px; 
+    }
+}
+
+      header h1 {
+        font-size: 2.5rem;
+      }
+
+      header p {
+        font-size: 1.2rem;
+      }
+
+      .calendar {
+        width: 100%;
+      }
+
+      .timing h2 {
+        font-size: 1.5rem;
+      }
+
+      .timeline-item {
+        width: 100%;
+        padding-bottom: 15px;
+      }
+
+      .location h2 {
+        font-size: 1.8rem;
+      }
+
+      .map-container {
+        width: 100%;
+        height: 250px;
+      }
+
+   .photo {
+    width: 100px; /* Default size for very small screens */
+    height: 140px;
+    padding-bottom: 15px;
+}
+
+@media (min-width: 768px) { /* Medium screens */
+    .photo {
+        width: 150px;
+        height: 200px;
+    }
+}
+
+@media (min-width: 1024px) { /* Large screens */
+    .photo {
+        width: 200px;
+        height: 250px;
+    }
+}
+
+    
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="header-content">
+      <h1>Haneen & Youssef</h1>
+      <p>19.04.2025</p>
+    </div>
+  </header>
+
+  <div class="calendar">
+    <div class="month">April 2025</div>
+    <div class="days">
+      <div>Sun</div> <div>Mon</div> <div>Tue</div>
+      <div>Wed</div> <div>Thu</div> <div>Fri</div> <div>Sat</div>
+    </div>
+    <div class="dates">
+      <span></span> <span></span> <span>1</span> <span>2</span> <span>3</span> <span>4</span> <span>5</span>
+      <span>6</span> <span>7</span> <span>8</span> <span>9</span> <span>10</span> <span>11</span> <span>12</span>
+      <span>13</span> <span>14</span> <span>15</span> <span>16</span> <span>17</span> <span>18</span> 
+      <span class="special">19 ♥</span> 
+      <span>20</span> <span>21</span> <span>22</span> <span>23</span> <span>24</span> <span>25</span> <span>26</span>
+      <span>27</span> <span>28</span> <span>29</span> <span>30</span>
+    </div>
+  </div>
+
+  <section class="timing">
+    <h2>Wedding Schedule</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <span class="timeline-time">7:00 AM</span>
+        <p class="timeline-event">Wedding Start</p>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-time">7:30 AM</span>
+        <p class="timeline-event">First Entry</p>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-time">10:30 AM</span>
+        <p class="timeline-event">Second Entry</p>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-time">9:30 PM</span>
+        <p class="timeline-event">Dinner</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="location">
+    <h2>Wedding Location</h2>
+    <div class="map-container">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d28810.11187420552!2d55.526924599830494!3d25.49624105365871!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ef5f9ca7f3d91af%3A0x5ed300739105f4ea!2z2KjYrdixINin2YTYrdmF2LHZitmH!5e0!3m2!1sar!2sae!4v1740122008957!5m2!1sar!2sae" 
+      allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </section>
+
+  <div class="section1">
+    <h2 style="font-size: 2.5rem; font-family: 'Great Vibes', cursive; color: #e91e63; margin-bottom: 30px;">Special Memory</h2>
+    <div class="gallery">
+      <div class="photo">
+        <img src="Image.jpeg" alt="Image ">
+      </div>
+      <div class="photo">
+        <img src="Image1.jpeg" alt="Image 1">
+      </div>
+      <div class="photo">
+        <img src="Image2.jpeg" alt="Image 2">
+      </div>
+      <div class="photo">
+        <img src="Image3.jpeg" alt="Image 3">
+      </div>
+      <div class="photo">
+        <img src="Image4.jpeg" alt="Image 4">
+      </div>
+      <div class="photo">
+        <img src="Image5.jpeg" alt="Image 5">
+      </div>
+      <div class="photo">
+        <img src="Image6.jpeg" alt="Image 6">
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Haneen & Youssef</p>
+  </footer>
+</body>
+</html>
